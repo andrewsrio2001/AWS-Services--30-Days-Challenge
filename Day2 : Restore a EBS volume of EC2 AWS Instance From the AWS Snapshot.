@@ -1,0 +1,86 @@
+# AWS EC2 EBS Volume Management Guide
+
+This guide provides step-by-step instructions for managing EBS volumes on Amazon EC2 instances, including restoring from snapshots and mounting new volumes.
+
+## Prerequisites
+
+- An AWS account
+- AWS Management Console access
+- Basic understanding of AWS EC2 and EBS
+
+## Steps to Restore EBS Volume from AWS Snapshot
+
+### Step 1: Sign in to AWS Management Console
+1. Go to [AWS Management Console](https://aws.amazon.com/).
+2. Sign in with your AWS account credentials.
+
+### Step 2: Navigate to EC2 Dashboard
+1. In the top navigation bar, click on **Services**.
+2. Under the **Compute** section, select **EC2**.
+
+### Step 3: Identify Snapshot to Restore
+1. In the left-hand menu, click on **Snapshots** under **Elastic Block Store**.
+2. Locate the snapshot that you want to restore the EBS volume from.
+
+### Step 4: Restore Snapshot to New Volume
+1. Select the snapshot by clicking on its ID.
+2. Click **Actions** and then select **Create Volume**.
+3. Configure the volume details such as volume type, size, and availability zone.
+4. Click **Create**.
+
+### Step 5: Attach Restored Volume to EC2 Instance
+1. In the EC2 Dashboard, click on **Volumes** under **Elastic Block Store**.
+2. Locate the newly created volume.
+3. Select the volume, then click **Actions** and **Attach Volume**.
+4. Choose the EC2 instance to attach the volume to.
+5. Specify the device (e.g., /dev/sdf) and click **Attach**.
+
+### Step 6: Mount the Restored Volume and Restore Files
+1. Connect to your EC2 instance using SSH (for Linux) or RDP (for Windows).
+2. Identify the attached volume using `lsblk`.
+3. Create a directory for mounting the volume if necessary:
+   ```bash
+   sudo mkdir /mnt/restored_volume
+
+
+
+Mount the volume to the directory:
+bash
+Copy code
+sudo mount /dev/xvdf /mnt/restored_volume
+Replace /dev/xvdf with your actual device name.
+Restore your files to the mounted volume:
+bash
+Copy code
+sudo cp -r /path/to/backup/files/* /mnt/restored_volume/
+Step 7: Automate Mounting (Optional)
+Edit the /etc/fstab file to automatically mount the volume on instance reboot:
+bash
+Copy code
+echo '/dev/xvdf   /mnt/restored_volume   ext4   defaults,nofail   0   2' | sudo tee -a /etc/fstab
+Steps to Mount a New Attached Volume and Restore Files
+Step 8: Identify and Attach New Volume
+In the EC2 Dashboard, click on Volumes under Elastic Block Store.
+Create a new volume or select an existing unattached volume.
+Click Actions and then Attach Volume.
+Choose the EC2 instance to attach the volume to.
+Specify the device (e.g., /dev/xvdg) and click Attach.
+Step 9: Mount the New Volume and Restore Files
+Connect to your EC2 instance using SSH (for Linux) or RDP (for Windows).
+Identify the attached volume using lsblk.
+Create a directory for mounting the volume if necessary:
+bash
+sudo mkdir /mnt/new_volume
+Mount the volume to the directory:
+bash
+
+sudo mount /dev/xvdg /mnt/new_volume
+Replace /dev/xvdg with your actual device name.
+Restore your files to the mounted volume:
+bash
+sudo cp -r /path/to/backup/files/* /mnt/new_volume/
+Step 10: Automate Mounting (Optional)
+Edit the /etc/fstab file to automatically mount the volume on instance reboot:
+bash
+echo '/dev/xvdg   /mnt/new_volume   ext4   defaults,nofail   0   2' | sudo tee -a /etc/fstab
+Additional Considerations
