@@ -37,4 +37,34 @@ This guide provides step-by-step instructions for launching an EC2 instance on A
 ### Step 7: Add Storage
 1. Verify the default storage settings (8 GB General Purpose SSD).
 2. Adjust if necessary.
-3.
+3. Click **Next: Add Tags**.
+
+### Step 8: Add Tags
+1. Click **Add Tag**.
+2. Enter a key-value pair (e.g., Key: Name, Value: MyEC2Instance).
+3. Click **Next: Configure Security Group**.
+
+### Step 9: Configure Security Group
+1. Click **Add Rule**.
+2. Set Type to **SSH** (port 22) for Linux or **RDP** (port 3389) for Windows.
+3. Set Source to **My IP** to restrict access to your IP.
+4. Click **Review and Launch**.
+
+### Step 10: Review and Launch
+1. Review your settings.
+2. Click **Launch**.
+
+### Step 11: Select Key Pair
+1. Choose an existing key pair or create a new one.
+2. Download the key pair file (.pem) and store it securely.
+3. Check the acknowledgment box.
+4. Click **Launch Instances**.
+
+### Step 12: View Instances
+1. Click **View Instances** to see your running instance.
+2. Note the public IP address or DNS for SSH access.
+
+## Additional Resources
+
+- [Amazon EC2 Documentation](https://docs.aws.amazon.com/ec2/)
+- [AWS Free Tier](https://aws.amazon.com/free/)
